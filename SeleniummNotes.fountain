@@ -1,6 +1,8 @@
 **1) Switch to frame, Explicit wait, Java Executor 
 2)TestNG Test case
 3) Grouping test cases 
+4.TakeScreenShotOnFailure
+
 
 **
 
@@ -242,7 +244,17 @@ public void search() {
 	public void billPayment() {
 			System.out.println("C3: BillPayment successfully");
 		}}//end class
+/////////////////////////////////////////
 
+=========
 
-
+4.TakeScreenShotOnFailure
+@AfterMethod
+	public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
+		if (testResult.getStatus() == ITestResult.FAILURE) {
+			System.out.println(testResult.getStatus());
+			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			Files.copy(scrFile, new File("/Users/mdrubel/eclipse-workspace/MYLecture/FailTestResult/errorScreenshots" + testResult.getName() + "-" 
+					+ Arrays.toString(testResult.getParameters()) +  ".jpg"));
+	   }        
 
